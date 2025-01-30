@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
-
+    //Access customer repository
     private final CustomerRepository customerRepository;
 
     public Main(CustomerRepository customerRepository) {
@@ -42,13 +42,13 @@ public class Main {
     Function needed to shorten url
      */
 
-
+    //Delete customer by id
     @DeleteMapping("{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Integer Id){
         customerRepository.deleteById(Id);
     }
 
-    //Update customers from the table
+    //Update customers from the table by id
     @PutMapping("{customerId}")
     public void updateCustomer(@PathVariable("customerId") Integer id, @RequestBody CustomerRequest customerRequest){
         Customer customer = customerRepository.findById(id).get();

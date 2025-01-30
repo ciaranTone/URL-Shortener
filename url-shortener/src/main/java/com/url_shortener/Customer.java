@@ -74,7 +74,9 @@ public class Customer {
     }
 
     public void setLongUrl(String longUrl) {
-        this.longUrl = longUrl;
+        if (validateCustomerLongUrl(longUrl)){
+            this.longUrl = longUrl;
+        }
     }
 
     @Override
@@ -103,7 +105,25 @@ Validations
  */
     public boolean validateCustomerName(String name){
         if(name != null){
-            if(name.length() <= 2 || name.length() > 50){
+            if(name.length() < 2 || name.length() > 50){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateCustomerLongUrl(String longUrl){
+        if(longUrl != null){
+            if(longUrl.length() <= 10 || longUrl.length() > 200){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateCustomerEmail(String email){
+        if(email != null){
+            if(email.length() < 12 || email.length() > 50){
                 return false;
             }
         }
