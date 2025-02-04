@@ -27,7 +27,7 @@ public class Main {
     }
 
     //New customer record
-    record CustomerRequest(String email, String name, String longUrl){}
+    record CustomerRequest(Integer id, String email, String name, String longUrl, String shortUrl){}
     //Add a customer with url
     @PostMapping("/addCustomer")
     public void addCustomer(@RequestBody CustomerRequest customerRequest){
@@ -36,11 +36,8 @@ public class Main {
         newCustomer.setName(customerRequest.name);
         newCustomer.setLongUrl(customerRequest.longUrl);
         customerRepository.save(newCustomer);
-    }
 
-    /*
-    Function needed to shorten url
-     */
+    }
 
     //Delete customer by id
     @DeleteMapping("/deleteCustomer/{customerId}")
@@ -51,12 +48,19 @@ public class Main {
     //Update customers from the table by id
     @PutMapping("/updateCustomer/{customerId}")
     public void updateCustomer(@PathVariable("customerId") Integer id, @RequestBody CustomerRequest customerRequest){
+        Shortener shortener = new Shortener();
         Customer customer = customerRepository.findById(id).get();
         customer.setName(customerRequest.name);
         customer.setEmail(customerRequest.email);
+        customer.setShortUrl(shortener.shortenURL(customer.getId()));
         customerRepository.save(customer);
     }
 
-
+    //Short URL Function
+    /*
+    I want a char array,
+    Iterate through array and give back random letters or numbers,
+    Give a short url
+     */
 
 }

@@ -10,6 +10,7 @@ public class Customer {
     @SequenceGenerator(
             name = "customer_id_sequence",
             sequenceName = "customer_id_sequence",
+            initialValue = 1000,
             allocationSize = 1
     )
     @GeneratedValue(
