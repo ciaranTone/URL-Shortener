@@ -105,7 +105,7 @@ Validations
  */
     public boolean validateCustomerName(String name){
         if(name != null){
-            if(name.length() < 2 || name.length() > 50){
+            if(name.length() <2 || name.length() > 50){
                 return false;
             }
         }

@@ -29,7 +29,7 @@ public class Main {
     //New customer record
     record CustomerRequest(String email, String name, String longUrl){}
     //Add a customer with url
-    @PostMapping
+    @PostMapping("/addCustomer")
     public void addCustomer(@RequestBody CustomerRequest customerRequest){
         Customer newCustomer = new Customer();
         newCustomer.setEmail(customerRequest.email);
@@ -43,13 +43,13 @@ public class Main {
      */
 
     //Delete customer by id
-    @DeleteMapping("{customerId}")
+    @DeleteMapping("/deleteCustomer/{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Integer Id){
         customerRepository.deleteById(Id);
     }
 
     //Update customers from the table by id
-    @PutMapping("{customerId}")
+    @PutMapping("/updateCustomer/{customerId}")
     public void updateCustomer(@PathVariable("customerId") Integer id, @RequestBody CustomerRequest customerRequest){
         Customer customer = customerRepository.findById(id).get();
         customer.setName(customerRequest.name);
