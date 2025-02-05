@@ -8,7 +8,7 @@ import java.util.List;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("api/v1/urlshortener")
+@RequestMapping("urlshortener/")
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -36,7 +36,6 @@ public class Main {
         newCustomer.setName(customerRequest.name);
         newCustomer.setLongUrl(customerRequest.longUrl);
         customerRepository.save(newCustomer);
-
     }
 
     //Delete customer by id
@@ -55,12 +54,5 @@ public class Main {
         customer.setShortUrl(shortener.shortenURL(customer.getId()));
         customerRepository.save(customer);
     }
-
-    //Short URL Function
-    /*
-    I want a char array,
-    Iterate through array and give back random letters or numbers,
-    Give a short url
-     */
 
 }

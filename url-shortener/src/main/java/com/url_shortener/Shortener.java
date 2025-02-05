@@ -3,40 +3,43 @@ package com.url_shortener;
 public class Shortener {
     protected String shortenURL(int n){
         //Map to store possible characters (62)
-        char map[] = "012345689abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        char[] map = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 
         //String buffer can be modified.
-        // It contains [particular sequence of chars
+        // It contains particular sequence of chars
         StringBuffer sUrl = new StringBuffer();
-
-        while(n > 0){
+        //continues until n / 62 returns 0
+        while(n > 0) {
             sUrl.append(map[n % 62]);
-            n /= 62;
+            n = n / 62;
         }
+        //Reverse needed to complete base conversion
         return sUrl.reverse().toString();
     }
-
-    protected int shortUrlToId(String shortenURL){
+    /*
+    Function to trace back to original id given
+     */
+    protected int shortUrlToId(String shortURL){
         int id = 0;
         //base conversion logic
-        for(int i = 0; i < shortenURL.length(); i++){
-            if('a' <= shortenURL.charAt(i) && shortenURL.charAt(i) <= 'z'){
-                id = id * 62 + shortenURL.charAt(i) - 'a';
+        for(int i = 0; i < shortURL.length(); i++){
+            if('a' <= shortURL.charAt(i) && shortURL.charAt(i) <= 'z'){
+                id = id * 62 + shortURL.charAt(i) - 'a';
             }
-            if ('A' <= shortenURL.charAt(i) && shortenURL.charAt(i) <= 'Z'){
-                id = id * 62 + shortenURL.charAt(i) - 'A' + 26;
+            if ('A' <= shortURL.charAt(i) && shortURL.charAt(i) <= 'Z'){
+                id = id * 62 + shortURL.charAt(i) - 'A' + 26;
             }
-            if('0' <= shortenURL.charAt(i) && shortenURL.charAt(i) <= '9'){
-                id = id * 62 + shortenURL.charAt(i) - '0' + 52;
+            if('0' <= shortURL.charAt(i) && shortURL.charAt(i) <= '9'){
+                id = id * 62 + shortURL.charAt(i) - '0' + 52;
             }
         }
         return id;
     }
 
     public static void main(String[] args) {
-        int n = 12345;
+        int n = 54903;
         String shortUrl = new Shortener().shortenURL(n);
-        System.out.println(shortUrl);
-        System.out.println(new Shortener().shortUrlToId(shortUrl));
+        System.out.println("Generated short url is: " + shortUrl);
+        System.out.println("ID form url is: " + new Shortener().shortUrlToId(shortUrl));
     }
 }
