@@ -55,8 +55,4 @@ public class Main {
         customer.setShortUrl(shortener.shortenURL(customer.getId()));
         customerRepository.save(customer);
     }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }

@@ -8,23 +8,16 @@ public class Shortener {
         //String buffer can be modified.
         // It contains particular sequence of chars
         StringBuffer sUrl = new StringBuffer();
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         //continues until n / 62 returns 0
         while(n > 0) {
             sUrl.append(map[n % 62]);
             n = n / 62;
         }
         //Reverse needed to complete base conversion
-<<<<<<< Updated upstream
-        return sUrl.reverse().toString();
-=======
         sUrl.reverse();
         //sUrl.insert(0, "http://urlshortener/");
         return sUrl.toString();
->>>>>>> Stashed changes
     }
     /*
     Function to trace back to original id given
