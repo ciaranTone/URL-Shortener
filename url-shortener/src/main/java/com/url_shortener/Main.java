@@ -8,7 +8,7 @@ import java.util.List;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("urlshortener/")
+@RequestMapping("/urlshortener")
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -28,6 +28,7 @@ public class Main {
 
     //New customer record
     record CustomerRequest(Integer id, String email, String name, String longUrl, String shortUrl){}
+
     //Add a customer with url
     @PostMapping("/addCustomer")
     public void addCustomer(@RequestBody CustomerRequest customerRequest){
@@ -40,8 +41,8 @@ public class Main {
 
     //Delete customer by id
     @DeleteMapping("/deleteCustomer/{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") Integer Id){
-        customerRepository.deleteById(Id);
+    public void deleteCustomer(@PathVariable("customerId") Integer id){
+        customerRepository.deleteById(id);
     }
 
     //Update customers from the table by id
@@ -54,5 +55,8 @@ public class Main {
         customer.setShortUrl(shortener.shortenURL(customer.getId()));
         customerRepository.save(customer);
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }

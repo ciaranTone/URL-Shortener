@@ -35,7 +35,7 @@ public class Customer {
     public Customer() {
 
     }
-
+//Getters and setters
     public int getId() {
         return id;
     }
@@ -80,6 +80,7 @@ public class Customer {
         }
     }
 
+    //Hash code and equals
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -92,10 +93,11 @@ public class Customer {
         return Objects.hash(id, email, name, shortUrl, longUrl);
     }
 
+    //toString
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "Id=" + id +
                 ", email='" + email + '\'' +
                 ", shortUrl='" + shortUrl + '\'' +
                 ", longUrl='" + longUrl + '\'' +
