@@ -54,5 +54,22 @@ public class Main {
         customer.setShortUrl(shortener.shortenURL(customer.getId()));
         customerRepository.save(customer);
     }
+    //Redirect shortUrl to longUrl
+    @RequestMapping("{shortUrl}")
+    public String getLongUrl(@PathVariable("shortUrl") String shortUrl, @RequestBody CustomerRequest request) {
+        Customer customer = customerRepository.findByShortUrl(shortUrl);
+        return customer.getLongUrl();
+    }
 
+    /*@RequestMapping(value = "/{id}", method=RequestMethod.GET)
+    public RedirectView redirectUrl(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, Exception {
+        Customer customer = customerRepository.findById(id).get();
+        String longUrl = customer.getLongUrl(id);
+        String shortUrl = customer.getShortUrl();
+       //String redirectUrlString = customer.getLongUrl(id);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(longUrl);
+        return redirectView;
+    }*/
 }
+
