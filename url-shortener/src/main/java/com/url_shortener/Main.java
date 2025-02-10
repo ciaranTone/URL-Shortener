@@ -8,73 +8,11 @@ import java.util.List;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("urlshortener/")
+//@RequestMapping("urlshortener/")
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(UrlShortenerController.class, args);
 
     }
-
-    public Main(UrlShortenerRepository urlShortenerRepository) {
-    }
-
-    //Access customer repository
-    /*private final CustomerRepository customerRepository;
-
-    public Main(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-
-    //Get all customer in the table
-    @GetMapping
-    public List<Customer> getCustomers(){
-        return customerRepository.findAll();
-    }
-
-    //New customer record
-    record CustomerRequest(Integer id, String email, String name, String longUrl, String shortUrl){}
-    //Add a customer with url
-    @PostMapping("/addCustomer")
-    public void addCustomer(@RequestBody CustomerRequest customerRequest){
-        Customer newCustomer = new Customer();
-        newCustomer.setEmail(customerRequest.email);
-        newCustomer.setName(customerRequest.name);
-        newCustomer.setLongUrl(customerRequest.longUrl);
-        customerRepository.save(newCustomer);
-    }
-
-    //Delete customer by id
-    @DeleteMapping("/deleteCustomer/{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") Integer Id){
-        customerRepository.deleteById(Id);
-    }
-
-    //Update customers from the table by id
-    @PutMapping("/updateCustomer/{customerId}")
-    public void updateCustomer(@PathVariable("customerId") Integer id, @RequestBody CustomerRequest customerRequest){
-        Shortener shortener = new Shortener();
-        Customer customer = customerRepository.findById(id).get();
-        customer.setName(customerRequest.name);
-        customer.setEmail(customerRequest.email);
-        customer.setShortUrl(shortener.shortenURL(customer.getId()));
-        customerRepository.save(customer);
-    }
-    //Redirect shortUrl to longUrl
-    @RequestMapping("{shortUrl}")
-    public String getLongUrl(@PathVariable("shortUrl") String shortUrl, @RequestBody CustomerRequest request) {
-        Customer customer = customerRepository.findByShortUrl(shortUrl);
-        return customer.getLongUrl();
-    }
-
-    /*@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-    public RedirectView redirectUrl(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, Exception {
-        Customer customer = customerRepository.findById(id).get();
-        String longUrl = customer.getLongUrl(id);
-        String shortUrl = customer.getShortUrl();
-       //String redirectUrlString = customer.getLongUrl(id);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl(longUrl);
-        return redirectView;
-    }*/
 }
 

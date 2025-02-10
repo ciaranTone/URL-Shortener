@@ -1,12 +1,9 @@
 package com.url_shortener;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 
 import java.util.Objects;
-
+@Entity
 public class UrlShortener {
     @Id
     @SequenceGenerator(

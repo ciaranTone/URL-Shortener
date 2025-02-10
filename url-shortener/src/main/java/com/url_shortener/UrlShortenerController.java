@@ -5,27 +5,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.url_shortener.UrlService.*;
+
 @SpringBootApplication
 @RestController
-@RequestMapping("url-shortener")
+@RequestMapping("/url-shortener")
 public class UrlShortenerController {
     //Access url repository
-    private final UrlShortenerRepository urlShortenerRepository;
+    //private final UrlShortenerRepository urlShortenerRepository;
 
-    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository) {
-        this.urlShortenerRepository = urlShortenerRepository;
+    private final UrlService urlService;
+
+
+    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository, UrlService urlService) {
+        this.urlService = urlService;
     }
 
+    @PostMapping("/short-url")
+    public String convertToShortUrl(@RequestBody UrlRequest urlRequest) {
+        return urlService.shortenUrl(urlRequest);
+    }
     //Get all urls in table
-    @GetMapping
-    public List<UrlShortener> getUrlShortener() {
-        return this.urlShortenerRepository.findAll();
-    }
 
-    record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {}
+   /* record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {}
 
-    @PostMapping("addUrl")
-    public void addUrl(@RequestBody UrlRequest urlRequest) {
+    @PostMapping("/addUrl")
+    public void addUrl(@RequestBody UrlRequest urlRequest, Integer id) {
         UrlShortener urlShortener = new UrlShortener();
         urlShortener.setOriginalUrl(urlRequest.originalUrl);
         urlShortenerRepository.save(urlShortener);
@@ -42,5 +47,5 @@ public class UrlShortenerController {
     @DeleteMapping("/deleteUrl/{urlId}")
     public void deleteUrl(@PathVariable("urlId") Integer id) {
         urlShortenerRepository.deleteById(id);
-    }
+    }*/
 }
