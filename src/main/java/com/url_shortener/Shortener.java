@@ -1,5 +1,8 @@
 package com.url_shortener;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Shortener {
     protected String shortenURL(int n){
         //Map to store possible characters (62)
