@@ -80,4 +80,8 @@ public class UrlShortener {
                 ", shortenedUrl='" + shortenedUrl + '\'' +
                 '}';
     }
+<<<<<<< Updated upstream:url-shortener/src/main/java/com/url_shortener/UrlShortener.java
 }
+=======
+}
+>>>>>>> Stashed changes:src/main/java/com/url_shortener/UrlShortener.java

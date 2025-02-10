@@ -48,4 +48,8 @@ public class UrlShortenerController {
     public void deleteUrl(@PathVariable("urlId") Integer id) {
         urlShortenerRepository.deleteById(id);
     }*/
+<<<<<<< Updated upstream:url-shortener/src/main/java/com/url_shortener/UrlShortenerController.java
 }
+=======
+}
+>>>>>>> Stashed changes:src/main/java/com/url_shortener/UrlShortenerController.java

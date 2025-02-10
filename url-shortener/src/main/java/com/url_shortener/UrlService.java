@@ -49,4 +49,8 @@ public class UrlService {
         return this.urlShortenerRepository.findAll();
     }
 
+<<<<<<< Updated upstream:url-shortener/src/main/java/com/url_shortener/UrlService.java
 }
+=======
+}
+>>>>>>> Stashed changes:src/main/java/com/url_shortener/UrlService.java
