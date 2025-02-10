@@ -12,9 +12,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+
+    }
+    private final UrlShortenerRepository urlShortenerRepository;
+    public Main(UrlShortenerRepository urlShortenerRepository) {
+        this.urlShortenerRepository = urlShortenerRepository;
     }
     //Access customer repository
-    private final CustomerRepository customerRepository;
+    /*private final CustomerRepository customerRepository;
 
     public Main(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
