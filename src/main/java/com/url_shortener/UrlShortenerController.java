@@ -25,7 +25,6 @@ public class UrlShortenerController {
     public String convertToShortUrl(@RequestBody UrlRequest urlRequest) {
         return urlService.shortenUrl(urlRequest);
     }
-    //Get all urls in table
 
    /* record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {}
 
