@@ -1,6 +1,7 @@
 package com.url_shortener;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,36 +16,33 @@ public class UrlShortenerController {
     //private final UrlShortenerRepository urlShortenerRepository;
 
     private final UrlService urlService;
+    private final Shortener shortener;
 
 
-    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository, UrlService urlService) {
+    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository, UrlService urlService, Shortener shortener) {
         this.urlService = urlService;
+        this.shortener = shortener;
     }
-
+    //Api: retrieve urls by id
+    @GetMapping("{id}")
+    public UrlShortener getUrlShortenerById(@PathVariable Integer id) {
+        return urlService.getUrlShortener(id);
+    }
+    //Api: use original url and convert to short
     @PostMapping("/short-url")
     public String convertToShortUrl(@RequestBody UrlRequest urlRequest) {
         return urlService.shortenUrl(urlRequest);
     }
-
-   /* record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {}
-
-    @PostMapping("/addUrl")
-    public void addUrl(@RequestBody UrlRequest urlRequest, Integer id) {
-        UrlShortener urlShortener = new UrlShortener();
-        urlShortener.setOriginalUrl(urlRequest.originalUrl);
-        urlShortenerRepository.save(urlShortener);
+    //Api: delete urls by id
+    @DeleteMapping("/delete/{id}")
+    public void deleteUrlById(@PathVariable Integer id) {
+        urlService.deleteUrl(id);
+    }
+    //Api: updates longUrl by id
+    @PutMapping("/update/{id}")
+    public void updateUrlById(@PathVariable Integer id, @RequestBody UrlRequest urlRequest) {
+        urlService.updateUrl(id, urlRequest);
     }
 
-    @PutMapping("/updateUrl/{urlId}")
-    public void updateUrl(@PathVariable("urlId") Integer id,@RequestBody UrlRequest urlRequest) {
-        Shortener shortener = new Shortener();
-        UrlShortener urlShortener = urlShortenerRepository.findById(id).get();
-        urlShortener.setShortenedUrl(shortener.shortenURL(urlShortener.getId()));
-        urlShortenerRepository.save(urlShortener);
-    }
 
-    @DeleteMapping("/deleteUrl/{urlId}")
-    public void deleteUrl(@PathVariable("urlId") Integer id) {
-        urlShortenerRepository.deleteById(id);
-    }*/
 }

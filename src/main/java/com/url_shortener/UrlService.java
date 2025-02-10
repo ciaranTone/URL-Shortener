@@ -1,6 +1,7 @@
 package com.url_shortener;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -12,10 +13,6 @@ public class UrlService {
     record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {
         public String getOriginalUrl() {
             return originalUrl;
-        }
-
-        public String getShortenedUrl() {
-            return shortenedUrl;
         }
     }
 
@@ -46,7 +43,49 @@ public class UrlService {
         return shortUrl;
     }
 
-    public List<UrlShortener> getUrl() {
-        return this.urlShortenerRepository.findAll();
+    /*
+    Method: getUrlShortener
+    Description:
+    Find urls by id.
+    Displays original and short url
+     */
+    public UrlShortener getUrlShortener(Integer id) {
+        return urlShortenerRepository.findById(id).orElse(null);
     }
+
+    /*
+    Method: deleteUrl
+    Description:
+    Deletes all urls by id(along with the id)
+     */
+    public UrlShortener deleteUrl(Integer id) {
+        UrlShortenerRepository repo = urlShortenerRepository;
+        //Stores entity, is found in repo by id
+        var entity = repo.findById(id).orElse(null);
+        //Check to see if it is null
+        if (entity != null) {
+            repo.delete(entity);
+        }
+        return entity;
+    }
+
+    /*
+    Method: updateUrl
+    Description:
+    Updates the long url by id.
+    NOTE: hoping to get the updating of the short url here
+     */
+    public void updateUrl(Integer id, UrlRequest urlRequest) {
+        UrlShortener url = urlShortenerRepository.findById(id).orElse(null);
+        url.setOriginalUrl(urlRequest.getOriginalUrl());
+        //url.setShortenedUrl(url.getShortenedUrl());
+        var entity = urlShortenerRepository.save(url);
+        urlShortenerRepository.save(entity);
+    }
+
+    /* ToDO: Redirect short url */
+    public RedirectView getRedirectView() {
+
+    }
+
 }
