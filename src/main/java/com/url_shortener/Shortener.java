@@ -19,7 +19,7 @@ public class Shortener {
         }
         //Reverse needed to complete base conversion
         sUrl.reverse();
-        sUrl.insert(0, "http://urlshortener/");
+        //sUrl.insert(0, "http://urlshortener/");
         return sUrl.toString();
     }
     /*

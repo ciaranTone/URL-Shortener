@@ -84,8 +84,4 @@ public class UrlService {
     }
 
     /* ToDO: Redirect short url */
-    public RedirectView getRedirectView() {
-        return getRedirectView();
-    }
-
 }

@@ -1,27 +1,35 @@
 package com.url_shortener;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.url_shortener.UrlService.*;
 
 @SpringBootApplication
 @RestController
 @RequestMapping("/url-shortener")
-public class UrlShortenerController {
+public class UrlShortenerController{
     //Access url repository
     //private final UrlShortenerRepository urlShortenerRepository;
 
     private final UrlService urlService;
     private final Shortener shortener;
+    private final UrlShortenerRepository urlShortenerRepository;
 
 
-    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository, UrlService urlService, Shortener shortener) {
+    public UrlShortenerController(UrlShortenerRepository urlShortenerRepository, UrlService urlService, Shortener shortener){
         this.urlService = urlService;
         this.shortener = shortener;
+        this.urlShortenerRepository = urlShortenerRepository;
     }
     //Api: retrieve urls by id
     @GetMapping("{id}")
@@ -44,5 +52,16 @@ public class UrlShortenerController {
         urlService.updateUrl(id, urlRequest);
     }
 
+   @GetMapping("/{shortUrl}")
+    public RedirectView getRedirection(@PathVariable String shortUrl) {
+       Optional<UrlShortener> urlOpt = urlShortenerRepository.findByUrl(shortUrl);
+       if (urlOpt.isPresent()) {
+           String original = urlOpt.get().getOriginalUrl();
+           return new RedirectView(original);
+       }
+       else{
+           return new RedirectView("COMPUTER SAYS NO!!!");
+       }
 
+   }
 }
