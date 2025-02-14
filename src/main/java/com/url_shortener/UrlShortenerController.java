@@ -32,10 +32,10 @@ public class UrlShortenerController{
         this.urlShortenerRepository = urlShortenerRepository;
     }
     //Api: retrieve urls by id
-    @GetMapping("{id}")
+  /*  @GetMapping("{id}")
     public UrlShortener getUrlShortenerById(@PathVariable Integer id) {
         return urlService.getUrlShortener(id);
-    }
+    }*/
     //Api: use original url and convert to short
     @PostMapping("/short-url")
     public String convertToShortUrl(@RequestBody UrlRequest urlRequest) {
@@ -52,6 +52,15 @@ public class UrlShortenerController{
         urlService.updateUrl(id, urlRequest);
     }
 
+    /*
+    Api: redirects to original url
+    Method: getRedirection
+    Description:
+    Uses the short url passed to find corresponding original url,
+    localhost:8080/url-shortener/{shortUrl} must be passed to work.
+    Example:  localhost:8080/url-shortener/qp
+    Will redirect to youtube.
+     */
    @GetMapping("/{shortUrl}")
     public RedirectView getRedirection(@PathVariable String shortUrl) {
        Optional<UrlShortener> urlOpt = urlShortenerRepository.findByUrl(shortUrl);

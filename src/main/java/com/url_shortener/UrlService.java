@@ -9,7 +9,7 @@ import java.util.List;
 public class UrlService {
     private final UrlShortenerRepository urlShortenerRepository;
     private final Shortener shortener;
-
+    //Data transfer object (DTO)
     record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {
         public String getOriginalUrl() {
             return originalUrl;
@@ -32,7 +32,7 @@ public class UrlService {
     public String shortenUrl(UrlRequest urlRequest) {
         //Creates and instance of class
         UrlShortener urlShortener = new UrlShortener();
-        //Sets the original url with input given
+        // Sets the original URL using the input from the UrlRequest
         urlShortener.setOriginalUrl(urlRequest.getOriginalUrl());
         //Variable used to save entity as a urlShortener(Original URL saved)
         var entity = urlShortenerRepository.save(urlShortener);
@@ -83,5 +83,4 @@ public class UrlService {
         urlShortenerRepository.save(entity);
     }
 
-    /* ToDO: Redirect short url */
 }
