@@ -1,7 +1,6 @@
 package com.url_shortener;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -13,6 +12,10 @@ public class UrlService {
     record UrlRequest(Integer id, String originalUrl, String shortenedUrl) {
         public String getOriginalUrl() {
             return originalUrl;
+        }
+
+        public String getShortenedUrl() {
+            return shortenedUrl;
         }
     }
 
@@ -49,8 +52,8 @@ public class UrlService {
     Find urls by id.
     Displays original and short url
      */
-    public UrlShortener getUrlShortener(Integer id) {
-        return urlShortenerRepository.findById(id).orElse(null);
+    public List<UrlShortener> getUrlShortener() {
+        return urlShortenerRepository.findAll();
     }
 
     /*
@@ -78,9 +81,23 @@ public class UrlService {
     public void updateUrl(Integer id, UrlRequest urlRequest) {
         UrlShortener url = urlShortenerRepository.findById(id).orElse(null);
         url.setOriginalUrl(urlRequest.getOriginalUrl());
-        //url.setShortenedUrl(url.getShortenedUrl());
+        url.setShortenedUrl(urlRequest.getShortenedUrl());
         var entity = urlShortenerRepository.save(url);
         urlShortenerRepository.save(entity);
+    }
+
+    public String alias(UrlRequest urlRequest){
+        //Creates and instance of class
+        UrlShortener urlShortener = new UrlShortener();
+        // Sets the original URL using the input from the UrlRequest
+        urlShortener.setOriginalUrl(urlRequest.getOriginalUrl());
+        //Variable used to save entity as a urlShortener(Original URL saved)
+        var entity = urlShortenerRepository.save(urlShortener);
+        String shortUrl = urlShortener.setShortenedUrl(urlRequest.getShortenedUrl());
+        //Sets and saves shortened URL
+        entity.setShortenedUrl(shortUrl);
+        urlShortenerRepository.save(entity);
+        return shortUrl;
     }
 
 }

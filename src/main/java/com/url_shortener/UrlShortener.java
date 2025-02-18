@@ -55,8 +55,9 @@ public class UrlShortener {
         return shortenedUrl;
     }
 
-    public void setShortenedUrl(String shortenedUrl) {
+    public String setShortenedUrl(String shortenedUrl) {
         this.shortenedUrl = shortenedUrl;
+        return shortenedUrl;
     }
 
     //hashcode and equals

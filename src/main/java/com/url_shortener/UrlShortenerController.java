@@ -1,12 +1,7 @@
 package com.url_shortener;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -16,6 +11,7 @@ import static com.url_shortener.UrlService.*;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/url-shortener")
 public class UrlShortenerController{
     //Access url repository
@@ -32,16 +28,20 @@ public class UrlShortenerController{
         this.urlShortenerRepository = urlShortenerRepository;
     }
     //Api: retrieve urls by id
-  /*  @GetMapping("{id}")
-    public UrlShortener getUrlShortenerById(@PathVariable Integer id) {
-        return urlService.getUrlShortener(id);
-    }*/
+    @GetMapping
+    public List<UrlShortener> getUrlShortenerById() {
+        return urlService.getUrlShortener();
+    }
     //Api: use original url and convert to short
     @PostMapping("/short-url")
     public String convertToShortUrl(@RequestBody UrlRequest urlRequest) {
         return urlService.shortenUrl(urlRequest);
     }
-    //Api: delete urls by id
+    @PostMapping("/alias")
+    public String alias(@RequestBody UrlRequest urlRequest) {
+       return urlService.alias(urlRequest);
+    }
+    //Api: delete urls by idshort
     @DeleteMapping("/delete/{id}")
     public void deleteUrlById(@PathVariable Integer id) {
         urlService.deleteUrl(id);
