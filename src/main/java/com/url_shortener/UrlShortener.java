@@ -46,39 +46,45 @@ public class UrlShortener {
         return originalUrl;
     }
 
+
     public void setOriginalUrl(String originalUrl) {
-        this.originalUrl = originalUrl;
+        if(validateOriginalUrl(originalUrl)){
+            this.originalUrl = originalUrl;
+        }
+
     }
 
     public String getShortenedUrl() {
         return shortenedUrl;
     }
 
+<<<<<<< Updated upstream
     public void setShortenedUrl(String shortenedUrl) {
         this.shortenedUrl = shortenedUrl;
+=======
+    public String setShortenedUrl(String shortenedUrl) {
+        if(validateShortenedUrl(shortenedUrl)){
+            this.shortenedUrl = shortenedUrl;
+            return shortenedUrl;
+        }
+        return null;
+>>>>>>> Stashed changes
     }
 
-    //hashcode and equals
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        UrlShortener that = (UrlShortener) o;
-        return id == that.id && Objects.equals(originalUrl, that.originalUrl) && Objects.equals(shortenedUrl, that.shortenedUrl);
+
+    //Validations
+    boolean validateOriginalUrl(String originalUrl) {
+      if(originalUrl != null && originalUrl.length() >= 10 && originalUrl.length() <= 200){
+          return true;
+      }
+      return false;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, originalUrl, shortenedUrl);
-    }
-
-    //toString
-    @Override
-    public String toString() {
-        return "UrlShortener{" +
-                "id=" + id +
-                ", originalUrl='" + originalUrl + '\'' +
-                ", shortenedUrl='" + shortenedUrl + '\'' +
-                '}';
+    boolean validateShortenedUrl(String shortenedUrl) {
+        if(shortenedUrl != null && !shortenedUrl.isEmpty() && shortenedUrl.length() <= 50){
+            return true;
+        }
+        return false;
     }
 <<<<<<< Updated upstream:url-shortener/src/main/java/com/url_shortener/UrlShortener.java
 }
