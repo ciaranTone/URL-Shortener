@@ -29,8 +29,12 @@ public class UrlShortenerController{
     }
     //Api: retrieve urls by id
     @GetMapping
-    public List<UrlShortener> getUrlShortenerById() {
+    public List<UrlShortener> getAllUrlShortenerById() {
         return urlService.getUrlShortener();
+    }
+    @GetMapping("/get/{id}")
+    public Optional<UrlShortener> getUrlShortenerById(@PathVariable Integer id) {
+        return urlService.getUrlById(id);
     }
     //Api: use original url and convert to short
     @PostMapping("/short-url")
@@ -47,10 +51,15 @@ public class UrlShortenerController{
         urlService.deleteUrl(id);
     }
     //Api: updates longUrl by id
-    @PutMapping("/update/{id}")
-    public void updateUrlById(@PathVariable Integer id, @RequestBody UrlRequest urlRequest) {
-        urlService.updateUrl(id, urlRequest);
+    @PutMapping("/updateShort/{id}")
+    public void updateShortUrlById(@PathVariable Integer id, @RequestBody UrlRequest urlRequest) {
+        urlService.updateShortUrl(id, urlRequest);
     }
+    @PutMapping("/updateOriginal/{id}")
+    public void updateOriginalUrlById(@PathVariable Integer id, @RequestBody UrlRequest urlRequest) {
+        urlService.updateOriginalUrl(id, urlRequest);
+    }
+
 
     /*
     Api: redirects to original url

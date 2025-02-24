@@ -3,6 +3,7 @@ package com.url_shortener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UrlService {
@@ -55,6 +56,9 @@ public class UrlService {
     public List<UrlShortener> getUrlShortener() {
         return urlShortenerRepository.findAll();
     }
+    public Optional<UrlShortener> getUrlById(Integer id) {
+        return urlShortenerRepository.findById(id);
+    }
 
     /*
     Method: deleteUrl
@@ -78,10 +82,16 @@ public class UrlService {
     Updates the long url by id.
     NOTE: hoping to get the updating of the short url here
      */
-    public void updateUrl(Integer id, UrlRequest urlRequest) {
+    public void updateShortUrl(Integer id, UrlRequest urlRequest) {
+        UrlShortener url = urlShortenerRepository.findById(id).orElse(null);
+        url.setShortenedUrl(urlRequest.getShortenedUrl());
+        var entity = urlShortenerRepository.save(url);
+        urlShortenerRepository.save(entity);
+    }
+
+    public void updateOriginalUrl(Integer id, UrlRequest urlRequest) {
         UrlShortener url = urlShortenerRepository.findById(id).orElse(null);
         url.setOriginalUrl(urlRequest.getOriginalUrl());
-        url.setShortenedUrl(urlRequest.getShortenedUrl());
         var entity = urlShortenerRepository.save(url);
         urlShortenerRepository.save(entity);
     }
