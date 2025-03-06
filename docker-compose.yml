@@ -1,22 +1,36 @@
 services:
-  db:
-    container_name: url_shortener
-    image: postgres
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
-    volumes:
-      - db:/data/postgres
-    ports:
-      - "5332:5432"
-    networks:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: ./backend
+    container_name: app
+    depends_on:
       - db
-    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=ciaran
+      - POSTGRES_PASSWORD=password
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/url-shortener
+      - SPRING_DATASOURCE_USERNAME=ciaran
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
-networks:
-  db:
-    driver: bridge
+    ports:
+      - "5422:5422"
 
-volumes:
+  react-app:
+    container_name: frontend
+    build:
+      context: "/Users/CiaranTone/Url-Frontend"
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
   db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=ciaran
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=url-shortener
+    ports:
+      - "5432:5432"

@@ -60,26 +60,4 @@ public class UrlShortener {
         return shortenedUrl;
     }
 
-    //hashcode and equals
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        UrlShortener that = (UrlShortener) o;
-        return id == that.id && Objects.equals(originalUrl, that.originalUrl) && Objects.equals(shortenedUrl, that.shortenedUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, originalUrl, shortenedUrl);
-    }
-
-    //toString
-    @Override
-    public String toString() {
-        return "UrlShortener{" +
-                "id=" + id +
-                ", originalUrl='" + originalUrl + '\'' +
-                ", shortenedUrl='" + shortenedUrl + '\'' +
-                '}';
-    }
 }

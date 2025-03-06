@@ -20,6 +20,7 @@ public class UrlService {
         }
     }
 
+
     public UrlService(UrlShortenerRepository urlShortenerRepository, Shortener shortener) {
         this.urlShortenerRepository = urlShortenerRepository;
         this.shortener = shortener;

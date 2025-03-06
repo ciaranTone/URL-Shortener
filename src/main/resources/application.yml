@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/customer
-    username: user
+    url: jdbc:postgresql://localhost:5432/url-shortener
+    username: ciaran
     password: password
   jpa:
     hibernate:
