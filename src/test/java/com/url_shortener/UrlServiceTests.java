@@ -50,6 +50,7 @@ public class UrlServiceTests {
 
         assertEquals(fakeShort, shortUrl);
         assertNotNull(shortUrl);
+
     }
 
     @Test
@@ -77,13 +78,14 @@ public class UrlServiceTests {
 
     @Test
     public void getAllUrlsTest(){
+        //Mock Data
         List<UrlShortener> urls = List.of(
                 new UrlShortener(1009, "https://newurl.com", "fh"),
                 new UrlShortener(1008, "https://newestUrl.com", "ft"),
                 new UrlShortener(1007, "https://newerUrl.com", "fb")
         );
         //Ensure urls are returned when findAll() is used
-        when(repo.findAll()).thenReturn(urls);
+        when(repo.findAll()).thenReturn(urls);//Mock Repository
         //Method from service
         List<UrlShortener> result = service.getUrlShortener();
         //Verify method was called on repository
