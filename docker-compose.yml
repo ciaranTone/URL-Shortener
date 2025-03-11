@@ -1,8 +1,6 @@
 services:
   app:
     image: 'docker-spring-boot-postgres:latest'
-    build:
-      context: ./backend
     container_name: app
     depends_on:
       - db
@@ -20,10 +18,10 @@ services:
   react-app:
     container_name: frontend
     build:
-      context: "/Users/CiaranTone/Url-Frontend"
+      context: "./Url-Frontend"
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "3001:3000"
 
   db:
     image: postgres
