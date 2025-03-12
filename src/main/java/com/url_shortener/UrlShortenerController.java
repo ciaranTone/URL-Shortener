@@ -4,7 +4,10 @@ import jakarta.servlet.annotation.WebServlet;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -79,7 +82,7 @@ public class UrlShortenerController{
            return new RedirectView(original);
        }
        else{
-           return new RedirectView("COMPUTER SAYS NO!!!");
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Original URL could not be found");
        }
 
    }
