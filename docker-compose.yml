@@ -1,6 +1,7 @@
 services:
   app:
-    image: 'docker-spring-boot-postgres:latest'
+    build:
+      dockerfile: Dockerfile
     container_name: app
     depends_on:
       - db
@@ -11,17 +12,20 @@ services:
       - SPRING_DATASOURCE_USERNAME=ciaran
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
     ports:
-      - "5422:5422"
+      - "8080:8080"
+    networks:
+      - app-network
 
   react-app:
     container_name: frontend
     build:
-      context: "./Url-Frontend"
+      context: "C:/Users/CiaranTone/Url-Frontend"
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "3000:3000"
+    networks:
+      - app-network
 
   db:
     image: postgres
@@ -32,3 +36,9 @@ services:
       - POSTGRES_DB=url-shortener
     ports:
       - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

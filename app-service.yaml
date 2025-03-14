@@ -8,9 +8,11 @@ metadata:
     io.kompose.service: app
   name: app
 spec:
+  type: NodePort
   ports:
-    - name: "5422"
-      port: 5422
-      targetPort: 5422
+    - name: "backend-port"
+      port: 8080
+      targetPort: 8080
+      nodePort: 30002
   selector:
     io.kompose.service: app

@@ -8,9 +8,11 @@ metadata:
     io.kompose.service: db
   name: db
 spec:
+  type: NodePort
   ports:
-    - name: "5432"
+    - name: "db-port"
       port: 5432
       targetPort: 5432
+      nodePort: 30001
   selector:
     io.kompose.service: db

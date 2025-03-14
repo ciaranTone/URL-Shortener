@@ -37,6 +37,6 @@ spec:
           image: ciarantone/docker-spring-boot-postgres:latest
           name: app
           ports:
-            - containerPort: 5422
+            - containerPort: 8080
               protocol: TCP
       restartPolicy: Always

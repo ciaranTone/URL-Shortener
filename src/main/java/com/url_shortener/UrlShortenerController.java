@@ -1,6 +1,7 @@
 package com.url_shortener;
 
 import jakarta.servlet.annotation.WebServlet;
+import org.springframework.aot.generate.AccessControl;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +16,8 @@ import java.util.Optional;
 
 import static com.url_shortener.UrlService.*;
 @RestController
-@CrossOrigin("http://localhost:3001")
 @RequestMapping("/url-shortener")
+@CrossOrigin("http://localhost:8080")
 public class UrlShortenerController{
     //Access url repository
     //private final UrlShortenerRepository urlShortenerRepository;

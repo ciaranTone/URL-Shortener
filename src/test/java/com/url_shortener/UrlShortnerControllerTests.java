@@ -38,7 +38,6 @@ public class UrlShortnerControllerTests {
     public void getAllUrlsTest() throws Exception {
         List<UrlShortener> urls = List.of(url1, url2, url3);
 
-
         when(urlService.getUrlShortener()).thenReturn(urls);
 
         ResultActions resultActions = mockMvc.perform(get("/url-shortener")
